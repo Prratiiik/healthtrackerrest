@@ -1,41 +1,46 @@
 package ie.setu.config
-import ie.setu.controllers.HealthTrackerController
+
+import ie.setu.controllers.UserController
+import ie.setu.controllers.Main
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
-
 class JavalinConfig {
 
     fun startJavalinService(): Javalin {
 
         val app = Javalin.create().apply {
-            exception(Exception::class.java) { e, ctx -> e.printStackTrace() }
+            exception(Exception::class.java) { e, _ -> e.printStackTrace() }
             error(404) { ctx -> ctx.json("404 - Not Found") }
-        }.start(getRemoteAssignedPort())
+        }.start(getHerokuAssignedPort())
 
         registerRoutes(app)
         return app
     }
-    private fun getRemoteAssignedPort(): Int {
-        val remotePort = System.getenv("PORT")
-        return if (remotePort != null) {
-            Integer.parseInt(remotePort)
+
+    private fun getHerokuAssignedPort(): Int {
+        val herokuPort = System.getenv("PORT")
+        return if (herokuPort != null) {
+            Integer.parseInt(herokuPort)
         } else 7000
     }
+
     private fun registerRoutes(app: Javalin) {
         app.routes {
+            path("/") {
+                get(Main::ping)
+            }
             path("/api/users") {
-                get(HealthTrackerController::getAllUsers)
-                post(HealthTrackerController::addUser)
+                get(UserController::getAllUsers)
+                post(UserController::addUser)
                 path("{user-id}"){
-                    get(HealthTrackerController::getUserByUserId)
-                    delete(HealthTrackerController::deleteUser)
-                    patch(HealthTrackerController::updateUser)
+                    get(UserController::getUserByUserId)
+                    delete(UserController::deleteUser)
+                    patch(UserController::updateUser)
                 }
                 path("/email/{email}"){
-                    get(HealthTrackerController::getUserByEmail)
+                    get(UserController::getUserByEmail)
                 }
             }
         }
     }
-
 }
