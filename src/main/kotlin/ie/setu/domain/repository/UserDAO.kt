@@ -1,12 +1,14 @@
 package ie.setu.domain.repository
+
 import ie.setu.domain.User
 import ie.setu.domain.db.Users
-import ie.setu.domain.utils.mapToUser
+import ie.setu.utils.mapToUser
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.select
 
 class UserDAO {
+
     fun getAll(): ArrayList<User> {
         val userList: ArrayList<User> = arrayListOf()
         transaction {

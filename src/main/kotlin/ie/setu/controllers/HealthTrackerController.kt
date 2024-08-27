@@ -1,13 +1,16 @@
 package ie.setu.controllers
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+
 import ie.setu.domain.User
 import ie.setu.domain.repository.UserDAO
 import io.javalin.http.Context
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import ie.setu.domain.UserDTO
 
 object HealthTrackerController {
 
     private val userDao = UserDAO()
+
     fun getAllUsers(ctx: Context) {
         ctx.json(userDao.getAll())
     }
@@ -37,13 +40,11 @@ object HealthTrackerController {
         userDao.delete(ctx.pathParam("user-id").toInt())
     }
 
-    fun updateUser(ctx: Context) {
+    fun updateUser(ctx: Context){
         val mapper = jacksonObjectMapper()
         val userUpdates = mapper.readValue<User>(ctx.body())
         userDao.update(
             id = ctx.pathParam("user-id").toInt(),
-            user = userUpdates
-        )
+            user=userUpdates)
     }
-
 }
