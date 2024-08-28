@@ -2,7 +2,6 @@ package ie.setu.config
 
 import ie.setu.domain.User
 import ie.setu.domain.db.Activities
-import ie.setu.domain.db.Users
 import mu.KotlinLogging
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -26,7 +25,7 @@ class DbConfig{
             "jdbc:postgresql://localhost:5432/health-tracker",
             driver = "org.postgresql.Driver",
             user = "postgres",
-            password= ""
+            password= "password"
         )
         transaction{
             SchemaUtils.createMissingTablesAndColumns(Users,Activities)
