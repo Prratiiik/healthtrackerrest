@@ -28,7 +28,9 @@ app.component("signup",{
     name:""
   }),
   methods:{
-
+    async logout(){
+      await fetch("/api/users/logout")
+    }
   }
 });
 </script>

@@ -134,4 +134,9 @@ object UserController {
             ctx.status(401).result("Invalid credentials")
         }
     }
+    fun logoutUser(ctx:Context){
+        ctx.req.session.invalidate()
+        ctx.clearCookieStore()
+        return ctx.redirect("/",302)
+    }
 }
