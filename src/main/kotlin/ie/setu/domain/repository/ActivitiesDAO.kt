@@ -33,7 +33,7 @@ class ActivitiesDAO {
     fun save(activity: Activity){
         transaction {
             Activities.insert {
-                it[id]=activity.id
+
                 it[calories] = activity.calories
                 it[activityName] = activity.activityName
             }
