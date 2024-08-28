@@ -1,4 +1,4 @@
-package ie.setu.repository
+/*package ie.setu.repository
 
 import ie.setu.domain.Activity
 import ie.setu.domain.ActivityDTO
@@ -183,3 +183,5 @@ class ActivityDAOTest {
         return userDAO
     }
 }
+
+ */

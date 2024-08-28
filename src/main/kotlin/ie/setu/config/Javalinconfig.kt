@@ -30,7 +30,7 @@ class JavalinConfig {
                     it.vue3("app")
                 }
             }
-        }.start(getHerokuAssignedPort())
+        }.start(getRemoteAssignedPort())
 
         registerRoutes(app)
         return app
@@ -51,7 +51,7 @@ class JavalinConfig {
         }
     )
 
-    private fun getHerokuAssignedPort(): Int {
+    private fun getRemoteAssignedPort(): Int {
         val herokuPort = System.getenv("PORT")
         return if (herokuPort != null) {
             Integer.parseInt(herokuPort)
@@ -72,16 +72,19 @@ class JavalinConfig {
             path("/api/users") {
                 get(UserController::getAllUsers)
                 post(UserController::addUser)
-                path("{user-id}"){
-                    get(UserController::getUserByUserId)
-                    delete(UserController::deleteUser)
-                    patch(UserController::updateUser)
+                path("/login"){
+                    post(UserController::authenticateUser)
+                }
+                path("/logout"){
+                    get(UserController::logoutUser)
                 }
                 path("/email/{email}"){
                     get(UserController::getUserByEmail)
                 }
-                path("/login"){
-                    post(UserController::authenticateUser)
+                path("{user-id}"){
+                    get(UserController::getUserByUserId)
+                    delete(UserController::deleteUser)
+                    patch(UserController::updateUser)
                 }
             }
             path("api/activities"){
