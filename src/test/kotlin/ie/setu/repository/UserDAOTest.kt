@@ -1,4 +1,4 @@
-/*package ie.setu.repository
+package ie.setu.repository
 
 import ie.setu.domain.User
 import ie.setu.domain.db.Users
