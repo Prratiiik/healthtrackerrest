@@ -20,6 +20,7 @@
 </template>
 
 <script>
+// noinspection JSAnnotator
 app.component("signup",{
   template:"#signup",
   data:()=>({
@@ -36,10 +37,13 @@ app.component("signup",{
 </script>
 
 <style>
+body{
+  background-color: black;
+  color: white;
+}
 .signup{
   height:100%;
   width:100%;
-  background-color:white;
   display:flex;
   justify-content:center;
   align-items:center;
