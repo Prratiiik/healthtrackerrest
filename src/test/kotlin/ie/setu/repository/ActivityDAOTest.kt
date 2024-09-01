@@ -1,6 +1,7 @@
 package ie.setu.repository
 
 import ie.setu.domain.Activity
+import ie.setu.domain.ActivityDTO
 import ie.setu.domain.User
 import ie.setu.domain.db.Activities
 import ie.setu.domain.db.Users
@@ -151,7 +152,7 @@ class ActivityDAOTest {
                 val acitivityDAO = populateUserTable()
 
                 //Act & Assert
-                val user3Updated = User(3, "new username", "new@email.ie", password="password")
+                val user3Updated = User(3, "new username", "new@email.ie")
                 acitivityDAO.update(user3.id, user3Updated)
                 assertEquals(user3Updated, acitivityDAO.findById(3))
             }
@@ -165,7 +166,7 @@ class ActivityDAOTest {
                 val acitivityDAO = populateUserTable()
 
                 //Act & Assert
-                val user4Updated = User(4, "new username", "new@email.ie", "password1")
+                val user4Updated = User(4, "new username", "new@email.ie")
                 acitivityDAO.update(4, user4Updated)
                 assertEquals(null, acitivityDAO.findById(4))
                 assertEquals(3, acitivityDAO.getAll().size)

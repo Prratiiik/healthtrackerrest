@@ -53,19 +53,10 @@ object UserController {
     )
 
     fun addUser(ctx: Context) {
-        val user = userDao.save(
-            User(
-                name = ctx.formParam("name") as String,
-                password = ctx.formParam("password") as String,
-                email = ctx.formParam("email") as String,
-                id = 1 // patching for making it compatible this would not be used as actual id
-            ))
-        if (user != null) {
-            ctx.sessionAttribute("id",user)
-            return ctx.redirect("/home",302)
-        }else {
-            ctx.status(500).json("{success:false,message:'Failed to signup user'}")
-        }
+        val mapper = jacksonObjectMapper()
+        val user = mapper.readValue<User>(ctx.body())
+        userDao.save(user)
+        ctx.json(user)
     }
 
     @OpenApi(
@@ -115,28 +106,5 @@ object UserController {
         userDao.update(
             id = ctx.pathParam("user-id").toInt(),
             user=userUpdates)
-    }
-
-    @OpenApi(
-        summary = "Authenticate User Credentials",
-        operationId = "loginUser",
-        tags = ["Users"],
-        path = "/api/users/login",
-        method = HttpMethod.POST,
-        responses = [OpenApiResponse("302"),OpenApiResponse("401")]
-    )
-
-    fun authenticateUser(ctx: Context){
-        val user = userDao.authenticate(ctx.formParam("email") as String,ctx.formParam("password") as String)
-        if(user!=null){
-            return ctx.redirect("/home",302)
-        }else{
-            ctx.status(401).result("Invalid credentials")
-        }
-    }
-    fun logoutUser(ctx:Context){
-        ctx.req.session.invalidate()
-        ctx.clearCookieStore()
-        return ctx.redirect("/",302)
     }
 }

@@ -1,15 +1,16 @@
 package ie.setu.domain.repository
 
 import ie.setu.domain.Activity
+import ie.setu.domain.User
 import ie.setu.domain.db.Activities
+import ie.setu.domain.db.Users
 import ie.setu.utils.mapToActivities
-import mu.KotlinLogging
+import ie.setu.utils.mapToUser
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class ActivitiesDAO {
-
-    private val logger = KotlinLogging.logger(){}
 
     fun getAll():ArrayList<Activity>{
         val activitiesList: ArrayList<Activity> = arrayListOf()
@@ -17,30 +18,25 @@ class ActivitiesDAO {
             Activities.selectAll().map {
                 activitiesList.add(mapToActivities(it)) }
         }
-        return activitiesList
+        return activitiesList;
     }
 
     fun findById(id: Int): Activity?{
         return transaction {
-            Activities.select {
+            Activities.select() {
                 Activities.id eq id}
                 .map{ mapToActivities(it) }
                 .firstOrNull()
         }
     }
 
-    fun save(activity: Activity): Activity? {
-        val insertedId = transaction {
+    fun save(activity: Activity){
+         transaction {
             Activities.insert {
                 it[calories] = activity.calories
                 it[activityName] = activity.activityName
-                it[userId] = activity.userId
-                it[createdAt] = activity.createdAt
             }
-        } get Activities.id
-        logger.info { "Inserted ID $insertedId" }
-
-        return this.findById(insertedId)
+        }
     }
 
     fun delete(id: Int) {
@@ -56,19 +52,7 @@ class ActivitiesDAO {
                 it[activityName] = activity.activityName
             }
         }
-        return this.findById(id)
-    }
-
-    fun findByUserId(userId:Int): ArrayList<Activity> {
-        val activitiesList: ArrayList<Activity> = arrayListOf()
-        transaction {
-            Activities.select(){
-                Activities.userId eq userId
-            }.map {
-                activitiesList.add(mapToActivities(it))
-            }
-        }
-        return activitiesList
+        return this.findById(id);
     }
 
 }
