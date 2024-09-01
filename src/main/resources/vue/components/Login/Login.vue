@@ -40,10 +40,7 @@ app.component("Login",{
 </script>
 
 <style>
-body{
-  background-color: black;
-  color: white;
-}
+
 .login{
   height:100%;
   width:100%;
