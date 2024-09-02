@@ -2,7 +2,7 @@ package ie.setu.controllers
 
 import io.javalin.http.Context
 
-object MainController {
+object Main {
     fun ping(ctx: Context){
 
     }
