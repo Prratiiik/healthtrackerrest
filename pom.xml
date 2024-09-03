@@ -129,6 +129,13 @@
             <artifactId>vue</artifactId>
             <version>3.2.45</version>
         </dependency>
+        <!-- dependencies for functional/integration testing -->
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.13.11</version>
+            <classifier>standalone</classifier>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
