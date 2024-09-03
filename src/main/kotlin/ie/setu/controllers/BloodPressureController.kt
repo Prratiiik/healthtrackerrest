@@ -77,8 +77,9 @@ object BloodPressureController {
                 } else {
                     ctx.status(500).result("Something went wrong")
                 }
-            }catch (err:Exception){
-                ctx.status(500).json("{'success':false,'message':'failed to create activity'}")
+            }
+        }catch (err:Exception){
+            ctx.status(500).json("{'success':false,'message':'failed to create activity'}")
         }
     }
 
