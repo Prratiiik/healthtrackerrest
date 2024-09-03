@@ -23,3 +23,23 @@ val activities = arrayListOf<Activity>(
     Activity(calories = "30", activityName = "Task3", id = 3, userId = 3, createdAt = DateTime.now())
 
 )
+
+val bloodPressureActivities = arrayListOf<BloodPressure>(
+    BloodPressure(pulse = 72, systolic = 120, diastolic = 80, userId = 1, createdAt = DateTime.now(),id=1),
+    BloodPressure(pulse = 72, systolic = 120, diastolic = 80, userId = 1, createdAt = DateTime.now(),id=2),
+    BloodPressure(pulse = 72, systolic = 120, diastolic = 80, userId = 1, createdAt = DateTime.now(),id=3),
+)
+
+val runningAcitivities = arrayListOf<Running>(
+    Running(id=1, distance = 25, calories = 150, userId = 1, createdAt = DateTime.now()),
+    Running(id = 1, distance = 25, calories = 150, userId = 1, createdAt = DateTime.now()),
+    Running(id = 1, distance = 25, calories = 150, userId = 1, createdAt = DateTime.now())
+)
+
+val temperatureActivities = arrayListOf<Temperature>(
+    Temperature(id = 1, temperature = "97.0".toFloat(), userId = 1, createdAt = DateTime.now()),
+    Temperature(id = 1, temperature = "98.0".toFloat(), userId = 1, createdAt = DateTime.now()),
+    Temperature(id = 1, temperature = "99.0".toFloat(), userId = 1, createdAt = DateTime.now()),
+
+
+    )
